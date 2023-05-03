@@ -10,10 +10,7 @@ router.get('/', function (req, res, next) {
 router.get('/api/last_update', async function (req, res, next) {
   try {
     const response = await axios.get('https://newsgpt-ai.azurewebsites.net/api/last_update');
-    var data = response.data;
-    var timestamp_ms = Number(data) * 1000
-    data = new Date(timestamp_ms).toLocaleString();
-    res.json(data);
+    res.json(response.data);
   } catch (error) {
     console.log(error);
     res.status(500).send('An error occurred while fetching data from the API');
@@ -23,8 +20,7 @@ router.get('/api/last_update', async function (req, res, next) {
 router.post('/api/submit_news_form', async function (req, res, next) {
   try {
     const response = await axios.post('https://newsgpt-ai.azurewebsites.net/api/submit_news_form', req.body);
-    var data = response.data;;
-    res.json(data);
+    res.json(response.data);
   } catch (error) {
     console.log(error);
     res.status(500).send('An error occurred while fetching data from the API');

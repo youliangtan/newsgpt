@@ -146,6 +146,8 @@
         .then(response => response.text())
         .then(data => {
           console.log(data);
+          timestamp_ms = Number(data) * 1000
+          data = new Date(timestamp_ms).toLocaleString();
           document.getElementById('last-update-time').innerHTML = data;
         })
         .catch(error => console.error(error));
