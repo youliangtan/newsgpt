@@ -34,7 +34,7 @@ def get_last_update(req: func.HttpRequest) -> func.HttpResponse:
 
 ##############################################################################
 
-
+# TODO: remove this endpoint and the html file
 @app.function_name(name="get_static")
 @app.route(route="index", auth_level=func.AuthLevel.ANONYMOUS)
 def get_static(req: func.HttpRequest) -> func.HttpResponse:
