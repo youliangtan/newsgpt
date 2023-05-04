@@ -1,5 +1,23 @@
 # newsgpt
-cloud function implementation for newsgpt site
+cloud function implementation for newsgpt site: https://news-gpt.azurewebsites.net/
+
+
+Architecture overview:
+```mermaid
+flowchart LR;
+ 
+    A[Web UI] -->|Load static page| B[Azure Web App];
+    A -->|Load summary content| C[Azure HTTP Functions];
+    E[Azure Timer Trigger] -->|Summary generation| G[Langchain and LLM] 
+    G -->|Persist to DB| D;
+    C -->|Read latest summary| D[CosmoDB];
+    H[News Websites] --> E
+  subgraph AZ functions
+   C
+   E
+   G
+  end
+```
 
 ## Resources: 
 - Medium post on azure openai langchai: https://medium.com/microsoftazure/azure-openai-and-langchain-eba69f18f050
@@ -23,7 +41,7 @@ azurite
 func start
 ```
 
-Open UI: http://localhost:7071/api/index
+Try APIs: http://localhost:7071/api/get_last_update
 
 ## Run webapp
 Since azure function needs cold start, it normally has a high response time on first call. For API call, it is okay, but for front page, it is not ideal. Thus, we will host our front page in a free-tier Azure web app. The web app is a simple express web app which serve html template and do api call to our azure functions. 
@@ -77,23 +95,6 @@ The website is available at https://news-gpt.azurewebsites.net/
 | Azure web app | 0.00 | Execution | 60 mins CPU time daily |
 | Azure OpenAI | 0.02 | 1000 | tokens, $0.3 every 2 hours |
 
-# Architecture overview 
-```mermaid
-flowchart LR;
- 
-    A[Web UI] -->|Load static page| B[Azure Web App];
-    A -->|Load summary content| C[Azure HTTP Functions];
-    E[Azure Timer Trigger] -->|Summary generation| G[Langchain and LLM] 
-    G -->|Persist to DB| D;
-    C -->|Read latest summary| D[CosmoDB];
-    H[News Websites] --> E
-  subgraph AZ functions
-   C
-   E
-   G
-  end
-```
- 
 ## Notes:
  - Selenium is not supported in Azure functions, due to the use of webdriver chrome.
  - The prompt is with bullet point, however it is not shown as output. Will need more debugging.

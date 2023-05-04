@@ -1,4 +1,5 @@
-import azure.cosmos.documents as documents
+#!/usr/bin/env python3
+
 import azure.cosmos.cosmos_client as cosmos_client
 import azure.cosmos.exceptions as exceptions
 from azure.cosmos.partition_key import PartitionKey
