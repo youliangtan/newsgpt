@@ -94,8 +94,8 @@ def submit_news_form(
               # cron with 6 fields, for every hour
             #   schedule="0 0 * * * *",
 
-            # cron with 6 fields, for every 2 hours
-              schedule="0 0 */2 * * *",
+              # cron with 6 fields, for every 3 hours
+              schedule="0 0 */3 * * *",
 
               arg_name="mytimer",
               run_on_startup=False) 
