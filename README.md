@@ -86,7 +86,7 @@ flowchart LR;
     E[Azure Timer Trigger] -->|Summary generation| G[Langchain and LLM] 
     G -->|Persist to DB| D;
     C -->|Read latest summary| D[CosmoDB];
-    H[News Websites] -> E;
+    H[News Websites] --> E
   subgraph AZ functions
    C
    E
