@@ -67,11 +67,7 @@ def submit_news_form(
         }
 
         s = db.query_latest_summary(cat, len_map[len])
-        summary = s["summary"]
-
-        json_res["headlines"] = \
-            f"Getting headlines for {cat}, with {len} length: \n" \
-            f"{summary}"
+        json_res["headlines"] = s["summary"]
 
         return func.HttpResponse(
             body=json.dumps(json_res),
@@ -96,10 +92,10 @@ def submit_news_form(
             #   schedule="0 */10 * * * *",
               
               # cron with 6 fields, for every hour
-              schedule="0 0 * * * *",
+            #   schedule="0 0 * * * *",
 
             # cron with 6 fields, for every 2 hours
-            #   schedule="0 0 */2 * * *",
+              schedule="0 0 */2 * * *",
 
               arg_name="mytimer",
               run_on_startup=False) 

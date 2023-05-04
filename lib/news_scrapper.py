@@ -12,7 +12,7 @@ def to_topic(cat: NewsCategory) -> str:
     category to topic mapping to comply with newscatcher
     """
     map = {
-        NewsCategory.ALL: "all",
+        NewsCategory.ALL: None,
         NewsCategory.BUSINESS: "business",
         NewsCategory.POLITICS: "politics",
         NewsCategory.SPORTS: "sport",
@@ -55,9 +55,13 @@ def get_content(urls: List[str], category: NewsCategory, content_limit: int = 15
         if nc.get_headlines() is None:
             print("No headlines found for url: ", url)
             continue
+        
+        # get only headlines
         if _method == 0:
             for index, headline in enumerate(nc.get_headlines()):
                 print(index, headline)
+                
+        # get only headlines and short descs
         elif _method == 1:
             results = nc.get_news()
             articles = results['articles']
@@ -75,6 +79,6 @@ def get_content(urls: List[str], category: NewsCategory, content_limit: int = 15
                 # print(output)
                 content_string += output
 
-    if len(content_string) > 12000:
-        return content_string[:12000]
+    if len(content_string) > 10000:
+        return content_string[:10000]
     return content_string
