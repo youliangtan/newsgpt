@@ -81,12 +81,19 @@ The website is available at https://news-gpt.azurewebsites.net/
 ```mermaid
 flowchart LR;
  
-  A[Web UI] -->|Load static page| B[Azure Web App];
-  A -->|Load summary content| C[Azure HTTP Functions];
-  C -->|Read latest summary| D[CosmoDB];
-  E[Azure Timer Trigger] -->|Summary generation| G[Langchain and LLM] 
-  G -->|Persist to DB| D;
+    A[Web UI] -->|Load static page| B[Azure Web App];
+    A -->|Load summary content| C[Azure HTTP Functions];
+    E[Azure Timer Trigger] -->|Summary generation| G[Langchain and LLM] 
+    G -->|Persist to DB| D;
+    C -->|Read latest summary| D[CosmoDB];
+    H[News Websites] -> E;
+  subgraph AZ functions
+   C
+   E
+   G
+  end
 ```
+ 
 ## Notes:
  - Selenium is not supported in Azure functions, due to the use of webdriver chrome.
  - The prompt is with bullet point, however it is not shown as output. Will need more debugging.
