@@ -72,10 +72,10 @@ The website is available at https://news-gpt.azurewebsites.net/
 
 | Service | Price | Unit | Description |
 | --- | --- | --- | --- |
-| Azure function | 0.0 | Execution | 1 million executions per month |
+| Azure Function | 0.0 | Execution | 1 million executions per month |
 | Azure Cosmos DB | 0.0 | Execution | 1,000 request units per-second provisioned throughput with 25 GB storage	 |
 | Azure web app | 0.00 | Execution | 60 mins CPU time daily |
-| Azure OpenAI | 0.02 | 1000 | tokens, $1 every 2 hours |
+| Azure OpenAI | 0.02 | 1000 | tokens, $0.3 every 2 hours |
 
 # Architecture overview 
 ```mermaid
