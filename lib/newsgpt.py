@@ -23,9 +23,9 @@ class NewsCategory:
 
 
 class NewsLength:
-    SHORT = 15
-    MEDIUM = 30
-    LONG = 50
+    SHORT = 10
+    MEDIUM = 20
+    LONG = 30
 
 
 ##############################################################################
@@ -118,14 +118,18 @@ class NewsGPT:
         print("Summarizing docs")
         MAP_REDUCE_DEBUG = False
         start = time.time()
+        
+        if news_category == NewsCategory.ALL:
+            news_category = ""
 
         map_prompt_template = f"Write a {news_category} news headlines summary of the following:"
-        map_prompt_template += " \n\n {text} \n\n"
-        map_prompt_template += f"PROVIDE SUMMARY WITH AROUND {news_length +10} SENTENCES"
+        map_prompt_template += " \n {text} \n"
+        map_prompt_template += f"PROVIDE SUMMARY WITH AROUND {news_length + 10} SENTENCES"
 
-        reduce_prompt_template = f"Write a summary of today's {news_category} news headlines from the following news sources:"
-        reduce_prompt_template += " \n\n {text} \n\n"
-        reduce_prompt_template += f"PROVIDE SUMMARY WITH AROUND {news_length} SENTENCES"
+        reduce_prompt_template = f"Write summary with {news_length} bullet points for today's"
+        reduce_prompt_template += f" {news_category} headlines from multiple News Sources:"
+        reduce_prompt_template += " \n {text} \n"
+        reduce_prompt_template += f"PROVIDE SUMMARY WITH {news_length} BULLET POINTS"
 
         MAP_PROMPT = PromptTemplate(template=map_prompt_template, input_variables=["text"])
         REDUCE_PROMPT = PromptTemplate(template=map_prompt_template, input_variables=["text"])
